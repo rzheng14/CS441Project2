@@ -27,6 +27,23 @@ int counter;
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
+  
+  UISwipeGestureRecognizer *down = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+  down.direction = UISwipeGestureRecognizerDirectionDown;
+  [self.view addGestureRecognizer:down];
+  
+  UISwipeGestureRecognizer *right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+  right.direction = UISwipeGestureRecognizerDirectionRight;
+  [self.view addGestureRecognizer:right];
+  
+  UISwipeGestureRecognizer *up = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+  up.direction = UISwipeGestureRecognizerDirectionUp;
+  [self.view addGestureRecognizer:up];
+  
+  UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+  left.direction = UISwipeGestureRecognizerDirectionLeft;
+  [self.view addGestureRecognizer:left];
+  
 }
 
 -(void)keepScore {
@@ -37,8 +54,41 @@ int counter;
 - (IBAction)changeVal:(id)sender {
   //new Game button. I'm not sure why it wont let me change the name of this function.
   [t1 setText:[NSString stringWithFormat: @"%d", 2]];
-  [t2 setText:[NSString stringWithFormat:@"%d", 2]];
+  [t2 setText:[NSString stringWithFormat: @"%d", 2]];
   [self keepScore];
+}
+
+
+//gesture recognizer to move tiles
+-(void)swipe:(UISwipeGestureRecognizer *) sender {
+  if(sender.direction == UISwipeGestureRecognizerDirectionDown) {
+    [self moveTiles:@"DOWN"];
+  }
+  if(sender.direction == UISwipeGestureRecognizerDirectionRight) {
+    [self moveTiles:@"RIGHT"];
+  }
+  if(sender.direction == UISwipeGestureRecognizerDirectionUp) {
+    [self moveTiles:@"UP"];
+  }
+  if(sender.direction == UISwipeGestureRecognizerDirectionLeft) {
+    [self moveTiles:@"LEFT"];
+  }
+}
+
+//moves tiles
+-(void)moveTiles:(NSString *) direction {
+  if([direction isEqualToString:@"DOWN"]) {
+    //move
+  }
+  if([direction isEqualToString:@"RIGHT"]) {
+    //move
+  }
+  if([direction isEqualToString:@"DOWN"]) {
+    //move
+  }
+  if([direction isEqualToString:@"LEFT"]) {
+    //move 
+  }
 }
 
 //CGAffineTransform up = CGAffineTransformMakeTranslation(0, -91);
