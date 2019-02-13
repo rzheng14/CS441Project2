@@ -43,7 +43,6 @@ int counter;
   UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
   left.direction = UISwipeGestureRecognizerDirectionLeft;
   [self.view addGestureRecognizer:left];
-  
 }
 
 -(void)keepScore {
@@ -55,12 +54,16 @@ int counter;
   //new Game button. I'm not sure why it wont let me change the name of this function.
   [t1 setText:[NSString stringWithFormat: @"%d", 2]];
   [t2 setText:[NSString stringWithFormat: @"%d", 2]];
+  t1.center = CGPointMake(255.5, 438.5); //moves to initial starting spot
+  t2.center = CGPointMake(158.5, 438.5); //moves to initial starting spot
   [self keepScore];
 }
 
 
-//gesture recognizer to move tiles
+//gesture recognizer to read the swipes
 -(void)swipe:(UISwipeGestureRecognizer *) sender {
+  
+  [self combine];  //works but need to keep swiping for it to update
   if(sender.direction == UISwipeGestureRecognizerDirectionDown) {
     [self moveTiles:@"DOWN"];
   }
@@ -77,19 +80,39 @@ int counter;
 
 //moves tiles
 -(void)moveTiles:(NSString *) direction {
+  //moves the tiles and also keeps them on the screen
   if([direction isEqualToString:@"DOWN"]) {
-    //move
+    //move down
+    if(t1.center.y <= 677) t1.center = CGPointMake(t1.center.x, t1.center.y + 91);
+    if(t2.center.y <= 677) t2.center = CGPointMake(t2.center.x, t2.center.y + 91);
   }
   if([direction isEqualToString:@"RIGHT"]) {
-    //move
+    //move right
+    if(t1.center.x <= 318) t1.center = CGPointMake(t1.center.x+97, t1.center.y);
+    if(t2.center.x <= 318) t2.center = CGPointMake(t2.center.x+97, t2.center.y);
   }
-  if([direction isEqualToString:@"DOWN"]) {
-    //move
+  if([direction isEqualToString:@"UP"]) {
+    //move up
+    if(t1.center.y >= 495) t1.center = CGPointMake(t1.center.x, t1.center.y - 91);
+    if(t2.center.y >= 495) t2.center = CGPointMake(t2.center.x, t2.center.y - 91);
   }
   if([direction isEqualToString:@"LEFT"]) {
-    //move 
+    //move left
+    if(t1.center.x >= 124) t1.center = CGPointMake(t1.center.x-97, t1.center.y);
+    if(t2.center.x >= 124) t2.center = CGPointMake(t2.center.x-97, t2.center.y);
   }
 }
+
+-(void)combine{
+  int value = t1.text.intValue * 2;
+  if((t1.center.x == t2.center.x) && (t1.center.y == t2.center.y)) {
+    [t1 setText:[NSString stringWithFormat:@"%d", value]];
+    t2.center = CGPointMake(158.5, 438.5);
+    [t2 setText:[NSString stringWithFormat:@"%d", value]];
+  }
+  [self keepScore];
+}
+
 
 //CGAffineTransform up = CGAffineTransformMakeTranslation(0, -91);
 //CGAffineTransform right = CGAffineTransformMakeTranslation(97, 0);
