@@ -15,7 +15,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *button;
 @property (nonatomic, strong) IBOutlet UILabel *t1;
 @property (nonatomic, strong) IBOutlet UILabel *t2;
-@property (strong, nonatomic) IBOutlet UIView *frame;
+
 
 @end
 

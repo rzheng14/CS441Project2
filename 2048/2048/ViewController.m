@@ -56,6 +56,9 @@ int counter;
   if(counter >= 1048576) {
      [score setText:[NSString stringWithFormat: @"Pls Stop"]];
   }
+  if(counter == 4096) {
+    [self win];
+  }
 }
 
 - (IBAction)changeVal:(id)sender {
@@ -65,6 +68,20 @@ int counter;
   [self initSpawn];
   [self spawn];
   [self keepScore];
+}
+
+
+-(void)win {
+  UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"WIN"
+                                                                           message:@"YOU WIN!"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+  //We add buttons to the alert controller by creating UIAlertActions:
+  UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:nil]; //button does noting
+  [alertController addAction:actionOk];
+  [self presentViewController:alertController animated:YES completion:nil];
+  
 }
 
 
@@ -159,6 +176,8 @@ int counter;
   } else {
     t2.center = CGPointMake(352.5, 711.5);
   }
+  //small FEATURE that this may spawn on top of the other tile.
+  //need to check where the other tile is.
 }
 
 -(void)initSpawn {
